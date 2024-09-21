@@ -44,6 +44,8 @@ public static class Arrays
 
         // First I will create two empty lists for list slicing. One for the first half
         // and one for the second half of the list.
+        // I will need to use data.Count - amount to the end of data as my first
+        // half and index 0 to data.Count - amount as my new second half.
         // Next I will use the property amount to define the first empty list and the second empty
         // list.
         // Next, I will concatinate the two lists together in the rotated order, adding
