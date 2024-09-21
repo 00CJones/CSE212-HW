@@ -1,3 +1,4 @@
+using System.Diagnostics;
 public static class Arrays
 {
     /// <summary>
@@ -13,7 +14,18 @@ public static class Arrays
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // First, I will create an array variable of size "length" that will be the final
+        // result to return that is of double type
+        // Next, I will create a for loop that will run "length" amount of times
+        // Lastly, in that for loop, I will multiply "number" by "length" in each loop
+        // and add it to the array
+
+        var result = new double[length];
+        for (int i = 1; i <= length; i++){
+            result[i - 1] = number * i;
+        }
+        Debug.WriteLine(result);
+        return result; // replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +41,34 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+
+        // First I will create two empty lists for list slicing. One for the first half
+        // and one for the second half of the list.
+        // Next I will use the property amount to define the first empty list and the second empty
+        // list.
+        // Next, I will concatinate the two lists together in the rotated order, adding
+        // items from second half onto first half
+        // Lastly, I will clear data and use the AddRange function to put in modified first 
+        // half for the new data list
+
+        List<int> newFirstHalf = data.GetRange(data.Count - amount, amount);
+        List<int> newSecondHalf = data.GetRange(0,data.Count - amount);
+        Debug.Write("Rotated newSecondHalf: ");
+        foreach (int num in newSecondHalf)
+        {
+            Debug.Write(num);
+        }
+        foreach (int i in newSecondHalf)
+        {
+            newFirstHalf.Add(i);
+        }
+        data.Clear();
+        data.AddRange(newFirstHalf);
+        Debug.Write("Rotated Data: ");
+        foreach (int num in data)
+        {
+            Debug.Write(num);
+        }
+        
     }
 }
