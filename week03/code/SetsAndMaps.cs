@@ -1,4 +1,4 @@
-using System.Text.Json;
+ using System.Text.Json;
 
 public static class SetsAndMaps
 {
@@ -21,8 +21,22 @@ public static class SetsAndMaps
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     public static string[] FindPairs(string[] words)
     {
-        // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        HashSet<string> wordSet = new HashSet<string>();
+        List<string> result = new List<string>();
+        
+        foreach (string word in words)
+        {
+            string reversed = new string(word.Reverse().ToArray());
+            if (wordSet.Contains(reversed))
+            {
+                result.Add($"{word} & {reversed}");
+            }
+            else
+            {
+                wordSet.Add(word);
+            }
+        }
+        return result.ToArray() ;
     }
 
     /// <summary>
@@ -42,7 +56,15 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
-            // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = (fields[3]);
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree] += 1;
+            }
+            else
+            {
+                degrees.Add(degree, 1);  // Add the degree with a count of 1
+            }            
         }
 
         return degrees;
@@ -66,8 +88,42 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        word1 = word1.ToLower().Replace(" ", "");
+        word2 = word2.ToLower().Replace(" ", "");
+        // If the lengths are not the same, they can't be anagrams
+        if (word1.Length != word2.Length)
+        {
+            return false;
+        }
+        var charCount1 = new Dictionary<char, int>();
+        var charCount2 = new Dictionary<char, int>();
+        // Count the frequency of each character in word1
+        foreach (char letter in word1)
+        {
+            if (charCount1.ContainsKey(letter))
+            {
+                charCount1[letter] += 1;
+            }
+            else
+            {
+                charCount1[letter] = 1;
+            }
+        }
+
+        // Count the frequency of each character in word2
+        foreach (char letter in word2)
+        {
+            if (charCount2.ContainsKey(letter))
+            {
+                charCount2[letter] += 1;
+            }
+            else
+            {
+                charCount2[letter] = 1;
+            }
+        }
+        // Compare both dictionaries to determine if they have the same characters and counts
+        return charCount1.Count == charCount2.Count && !charCount1.Except(charCount2).Any();
     }
 
     /// <summary>
