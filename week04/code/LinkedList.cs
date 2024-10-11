@@ -143,6 +143,7 @@ public class LinkedList : IEnumerable<int>
                 if (curr == _head)
                 {
                     RemoveHead();
+                    break;
                 }
                 if (curr == _tail)
                 {
@@ -153,7 +154,9 @@ public class LinkedList : IEnumerable<int>
                     curr.Next.Prev = curr.Prev;
                     curr.Prev.Next = curr.Next;
                 }
+                break;
             }
+            curr = curr.Next; // Move to the next node so wew don't get stuck in a forver loop
         }
     }
 
@@ -162,7 +165,15 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public void Replace(int oldValue, int newValue)
     {
-        // TODO Problem 4
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == oldValue)
+            {
+                curr.Data = newValue;
+            }
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
